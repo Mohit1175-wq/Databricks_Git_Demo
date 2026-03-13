@@ -1,0 +1,13 @@
+resources:
+  jobs:
+    Job_1_for_Assest_Bundle_Demo:
+      name: Job_1 for Assest Bundle Demo
+      tasks:
+        - task_key: Ingestion
+          notebook_task:
+            notebook_path: /../../src/Notebooks/Data Ingestion.ipynb   # take 2 step back .. means 1 step
+              
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
