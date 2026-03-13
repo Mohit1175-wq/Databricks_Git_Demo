@@ -1,0 +1,39 @@
+# This is a Databricks asset bundle definition for Asset_bundle_tut.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: Asset_bundle_tut
+  uuid: 72d0b84c-04f5-4e99-bd6d-a149db183e4a
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: hdbc-b6573b96-c331.cloud.databricks.com  # this we will get from compute > connection details > Host name
+    #  root_path: /Workspace/Dev/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - group_name: admins
+        level: CAN_MANAGE
+    presets:
+      name_prefix: ${workspace.current_user.short_name}
+      source_linked_deployment: false
+
+      
+  prod:
+    mode: production
+    workspace:
+      host: https://hdbc-b6573b96-c331.cloud.databricks.com
+      root_path: /Workspace/Prod/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: workspace
+      schema: prod
+    permissions:
+      - user_name: mohit.agarwal1@in.ey.com
+        level: CAN_MANAGE
+      - group_name: admins
+        level: CAN_RUN
